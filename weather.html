@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Weather App | Loki</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="shared.css"><script src="shared.js"></script></head><body>
+<header class="top"><a href="index.html#projects">Back to portfolio</a><span>Weather App</span></header><main class="wrap"><h1>Weather App</h1><p class="lede">Live conditions and a 5-day outlook for any city.</p>
+<form id="f" class="row"><input id="q" value="Lokoja" aria-label="City" required><button>Search</button></form>
+<div id="out" class="panel">Loading...</div></main>
+<script>
+const W=c=>c==0?'Clear sky':c<4?'Partly cloudy':c<50?'Fog':c<68?'Rain':c<78?'Snow':c<83?'Showers':'Thunderstorm';
+async function load(city){out.textContent='Loading...';try{
+const g=await(await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&name='+encodeURIComponent(city))).json();
+if(!g.results)return out.textContent='City not found. Check the spelling and try again.';
+const p=g.results[0],w=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`)).json(),c=w.current,d=w.daily;
+out.innerHTML=`<div class="mute">${p.name}, ${p.country||''}</div><div style="font-size:68px;font-weight:800;line-height:1.1">${Math.round(c.temperature_2m)}°C</div><div>${W(c.weather_code)} · Humidity ${c.relative_humidity_2m}% · Wind ${c.wind_speed_10m} km/h</div>
+<div class="stats" style="margin:22px 0 0">${d.time.slice(0,5).map((t,i)=>`<div class="panel" style="padding:12px"><span>${new Date(t).toLocaleDateString('en',{weekday:'short'})}</span><b style="font-size:20px">${Math.round(d.temperature_2m_max[i])}° <small class="mute">${Math.round(d.temperature_2m_min[i])}°</small></b><span>${W(d.weather_code[i])}</span></div>`).join('')}</div>`
+}catch{out.textContent='Could not load the weather. Check your internet connection.'}}
+f.onsubmit=e=>{e.preventDefault();load(q.value)};load('Lokoja');
+</script></body></html>

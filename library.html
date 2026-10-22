@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Library Management System | Loki</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="shared.css"><script src="shared.js"></script></head><body>
+<header class="top"><a href="index.html#projects">Back to portfolio</a><span>Library Management System</span></header><main class="wrap"><h1>Library Management System</h1><p class="lede">Catalogue books, lend them to members and track returns.</p>
+<div class="stats panel"><div><b id="t">0</b><span>Books</span></div><div><b id="a">0</b><span>Available</span></div><div><b id="o">0</b><span>On loan</span></div></div>
+<form id="f" class="row"><input id="ti" placeholder="Book title" required><input id="au" placeholder="Author" required><button>Add book</button></form>
+<input id="s" placeholder="Search title, author or member" aria-label="Search" style="width:100%;margin-bottom:12px">
+<div class="panel scroll-x"><table><thead><tr><th>Title</th><th>Author</th><th>Status</th><th></th></tr></thead><tbody id="tb"></tbody></table></div></main>
+<script>
+let D=JSON.parse(localStorage.library||'null')||[{ti:'Things Fall Apart',au:'Chinua Achebe',by:''},{ti:'Automate the Boring Stuff with Python',au:'Al Sweigart',by:''}];
+const esc=x=>x.replace(/</g,'&lt;');
+function draw(){localStorage.library=JSON.stringify(D);const k=s.value.toLowerCase();
+tb.innerHTML=D.map((d,i)=>[d,i]).filter(([d])=>(d.ti+d.au+d.by).toLowerCase().includes(k)).map(([d,i])=>`<tr><td>${esc(d.ti)}</td><td>${esc(d.au)}</td><td>${d.by?'Borrowed by '+esc(d.by):'Available'}</td><td>${d.by?`<button onclick="D[${i}].by='';draw()">Return</button>`:`<button onclick="lend(${i})">Lend</button>`} <button class="ghost" onclick="D.splice(${i},1);draw()">Remove</button></td></tr>`).join('')||'<tr><td colspan=4 class="mute">No books found.</td></tr>';
+t.textContent=D.length;o.textContent=D.filter(d=>d.by).length;a.textContent=D.length-o.textContent}
+function lend(i){const m=prompt('Member name');if(m&&m.trim()){D[i].by=m.trim();draw()}}
+f.onsubmit=e=>{e.preventDefault();D.push({ti:ti.value.trim(),au:au.value.trim(),by:''});f.reset();draw()};s.oninput=draw;draw();
+</script></body></html>

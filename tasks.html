@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Task Tracker | Loki</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="shared.css"><script src="shared.js"></script></head><body>
+<header class="top"><a href="index.html#projects">Back to portfolio</a><span>Task Tracker</span></header><main class="wrap"><h1>Task Tracker</h1><p class="lede">Add, finish and filter your tasks. They stay saved in this browser.</p>
+<form id="f" class="row"><input id="x" placeholder="What needs doing?" required><button>Add task</button></form>
+<div class="row"><button class="ghost" data-f="all">All</button><button class="ghost" data-f="open">Open</button><button class="ghost" data-f="done">Done</button><span class="mute" id="c" style="align-self:center"></span></div>
+<div class="panel"><div id="l"></div></div></main>
+<script>
+let D=JSON.parse(localStorage.tasks||'[]'),F='all';
+function draw(){localStorage.tasks=JSON.stringify(D);const v=D.map((d,i)=>[d,i]).filter(([d])=>F=='all'||(F=='done')==d.done);
+l.innerHTML=v.map(([d,i])=>`<label style="display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)"><input type="checkbox" ${d.done?'checked':''} onchange="D[${i}].done=this.checked;draw()"><span style="flex:1;${d.done?'text-decoration:line-through;color:var(--mute)':''}">${d.t.replace(/</g,'&lt;')}</span><button type="button" class="ghost" onclick="D.splice(${i},1);draw()">Delete</button></label>`).join('')||'<span class="mute">Nothing here. Add a task above.</span>';
+c.textContent=D.filter(d=>!d.done).length+' open'}
+f.onsubmit=e=>{e.preventDefault();D.unshift({t:x.value.trim(),done:false});f.reset();draw()};document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{F=b.dataset.f;draw()});draw();
+</script></body></html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Grade Manager | Loki</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="shared.css"><script src="shared.js"></script></head><body>
+<header class="top"><a href="index.html#projects">Back to portfolio</a><span>Grade Manager</span></header><main class="wrap"><h1>Grade Manager</h1><p class="lede">Enter subject scores to get your average and letter grade.</p>
+<div class="stats panel"><div><b id="av">0</b><span>Average</span></div><div><b id="gr">-</b><span>Grade</span></div></div>
+<form id="f" class="row"><input id="sub" placeholder="Subject" required><input id="sc" type="number" min="0" max="100" placeholder="Score (0-100)" required><button>Add subject</button></form>
+<div class="panel"><table><tbody id="tb"></tbody></table></div></main>
+<script>
+let D=JSON.parse(localStorage.grades||'[]');const L=s=>s>=70?'A':s>=60?'B':s>=50?'C':s>=45?'D':s>=40?'E':'F';
+function draw(){localStorage.grades=JSON.stringify(D);tb.innerHTML=D.map((d,i)=>`<tr><td>${d.s.replace(/</g,'&lt;')}</td><td>${d.c}</td><td>${L(d.c)}</td><td><button class="ghost" onclick="D.splice(${i},1);draw()">Remove</button></td></tr>`).join('')||'<tr><td class="mute">No subjects yet.</td></tr>';
+const a=D.length?D.reduce((x,d)=>x+d.c,0)/D.length:0;av.textContent=a.toFixed(1);gr.textContent=D.length?L(a):'-'}
+f.onsubmit=e=>{e.preventDefault();D.push({s:sub.value.trim(),c:+sc.value});f.reset();draw()};draw();
+</script></body></html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Loki | Portfolio</title><meta name="description" content="Loki, a junior full-stack developer based in Lokoja, Nigeria.">
+<script>try{document.documentElement.dataset.theme=localStorage.theme||'dark'}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body>
+<div id="boot" role="status" aria-label="Loading">
+ <svg viewBox="0 0 200 230" aria-hidden="true">
+  <defs><clipPath id="fl"><path d="M84 20V82C60 98 42 118 42 150C42 184 68 206 100 206C132 206 158 184 158 150C158 118 140 98 116 82V20Z"/></clipPath></defs>
+  <g clip-path="url(#fl)"><g class="w2"><path d="M0 128Q25 112 50 128T100 128T150 128T200 128T250 128T300 128V230H0Z" fill="#a82547"/></g><g class="w1"><path d="M0 140Q25 128 50 140T100 140T150 140T200 140T250 140T300 140V230H0Z" fill="#f72c5b"/></g></g>
+  <circle class="bb b1" cx="88" cy="122" r="3"/><circle class="bb b2" cx="104" cy="124" r="2"/><circle class="bb b3" cx="96" cy="120" r="3.5"/>
+  <path d="M78 12Q84 12 84 20V82C60 98 42 118 42 150C42 184 68 206 100 206C132 206 158 184 158 150C158 118 140 98 116 82V20Q116 12 122 12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg><p>loading<span class="ld"><i>.</i><i>.</i><i>.</i></span></p></div>
+<nav><a class="logo" href="#top">LO<br>KI</a><div><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+ <button id="theme" class="tg" type="button" aria-label="Switch between light and dark mode"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button></div></nav>
+<section class="hero" id="top">
+ <small>I AM</small><h1>LOKI</h1><p>A junior full-stack developer<br>from Lokoja, Nigeria</p>
+ <div class="side"><a href="https://github.com/danielchristian5444-debug">GitHub</a><a href="https://www.linkedin.com/in/christian-daniel-s-589b2336a">LinkedIn</a><a href="mailto:danielchristian5444@gmail.com">Email</a></div>
+ <a class="scroll" href="#skills">Scroll</a>
+</section>
+<section id="skills"><h2>Skills and abilities</h2>
+ <div class="two"><ul id="skillList" class="skills"></ul>
+ <div><h3>What I can do</h3><ul class="abil">
+  <li>Turn an idea into a working app, from layout to logic</li>
+  <li>Build responsive pages that work on a phone first</li>
+  <li>Write clear Python and model data with simple OOP</li>
+  <li>Store and query data with SQL and Supabase</li>
+  <li>Keep projects organised and publish them on GitHub</li></ul></div></div>
+</section>
+<section id="projects"><h2>Toolkit</h2><p class="sub">Six projects I have built. Pick one, run the live demo, or edit the code and watch it update.</p>
+ <div id="stage" class="stage"></div>
+ <div class="info"><h3 id="pName"></h3><p id="pDesc"></p><p id="pTags" class="sub"></p>
+  <div class="acts"><button id="bDemo" class="btn pri" type="button">Live demo</button><button id="bCode" class="btn" type="button">Live code</button><a id="pLink" class="btn" href="#" target="_blank" rel="noopener">Full page</a></div></div>
+ <div class="nav2"><button id="prev" aria-label="Previous project">&lt;</button><button id="next" aria-label="Next project">&gt;</button></div>
+ <div id="wb" class="wb" data-tab="demo" hidden>
+  <div class="wbh"><strong id="wbT"></strong>
+   <div class="tabs" role="tablist"><button id="tDemo" role="tab" aria-selected="true" type="button">Demo</button><button id="tCode" role="tab" aria-selected="false" type="button">Code</button></div>
+   <div class="wbact"><button id="wbReset" type="button">Reset</button><button id="wbCopy" type="button">Copy code</button><button id="wbClose" type="button" aria-label="Close">&times;</button></div></div>
+  <div class="wbb"><textarea id="ed" spellcheck="false" aria-label="Project source code"></textarea><iframe id="fr" title="Project preview"></iframe></div>
+ </div>
+</section>
+<section id="contact"><div class="two">
+ <div><h2>Contact</h2><p class="sub">Open to junior full-stack and frontend roles, and freelance work.</p>
+  <dl><dt>Location</dt><dd>Lokoja, Nigeria</dd><dt>Phone</dt><dd>07055689421</dd><dt>E-mail</dt><dd>danielchristian5444@gmail.com</dd></dl></div>
+ <form id="cf" class="panel"><h3>Send a message</h3>
+  <label>Your name<input name="name" required></label><label>Your e-mail<input name="email" type="email" required></label>
+  <label>Message<textarea name="message" rows="4" required></textarea></label>
+  <button class="btn pri" type="submit">Send message</button><p id="formStatus" role="status" class="sub"></p></form>
+</div></section>
+<script src="sources.js"></script><script src="main.js"></script></body></html>

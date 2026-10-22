@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>School Management System | Loki</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="shared.css"><script src="shared.js"></script></head><body>
+<header class="top"><a href="index.html#projects">Back to portfolio</a><span>School Management System</span></header><main class="wrap"><h1>School Management System</h1><p class="lede">Register students, record scores and track class averages.</p>
+<div class="stats panel"><div><b id="n">0</b><span>Students</span></div><div><b id="avg">0</b><span>Average score</span></div><div><b id="tp">-</b><span>Top student</span></div></div>
+<form id="f" class="row"><input id="nm" placeholder="Student name" required><select id="cls" aria-label="Class"><option>JSS 1</option><option>JSS 2</option><option>JSS 3</option><option>SS 1</option><option>SS 2</option><option>SS 3</option></select><input id="sc" type="number" min="0" max="100" placeholder="Score (0-100)" required><button>Add student</button></form>
+<input id="s" placeholder="Search by name or class" aria-label="Search" style="width:100%;margin-bottom:12px">
+<div class="panel scroll-x"><table><thead><tr><th>Name</th><th>Class</th><th>Score</th><th></th></tr></thead><tbody id="tb"></tbody></table></div></main>
+<script>
+let D=JSON.parse(localStorage.school||'null')||[{name:'Amina Yusuf',cls:'SS 2',sc:78},{name:'David Okoro',cls:'JSS 3',sc:64}];
+function draw(){localStorage.school=JSON.stringify(D);const k=s.value.toLowerCase();
+tb.innerHTML=D.map((d,i)=>[d,i]).filter(([d])=>(d.name+d.cls).toLowerCase().includes(k)).map(([d,i])=>`<tr><td>${d.name.replace(/</g,'&lt;')}</td><td>${d.cls}</td><td>${d.sc}</td><td><button class="ghost" onclick="D.splice(${i},1);draw()">Remove</button></td></tr>`).join('')||'<tr><td colspan=4 class="mute">No students yet. Add one above.</td></tr>';
+n.textContent=D.length;avg.textContent=D.length?(D.reduce((a,d)=>a+d.sc,0)/D.length).toFixed(1):0;tp.textContent=D.length?D.reduce((a,d)=>d.sc>a.sc?d:a).name.split(' ')[0]:'-'}
+f.onsubmit=e=>{e.preventDefault();D.push({name:nm.value.trim(),cls:cls.value,sc:+sc.value});f.reset();draw()};s.oninput=draw;draw();
+</script></body></html>
